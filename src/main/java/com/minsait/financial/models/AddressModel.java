@@ -1,4 +1,4 @@
-package com.minsait.financial;
+package com.minsait.financial.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
