@@ -10,7 +10,7 @@ public interface CustomerService {
     List<CustomerResponseDto> getAllCustomers();
     CustomerResponseDto getCustomerByDocumentNumber(String documentoNumber);
     void deleteCustomerByDocumentNumber(String documentNumber);
-    CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestUpdateDto customerRequestUpdateDto);
+    CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestDto customerRequestDto);
 
 
 }

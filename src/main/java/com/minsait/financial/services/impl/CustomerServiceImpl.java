@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestUpdateDto customerRequestUpdateDto) {
+    public CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestDto customerRequestDto) {
         return null;
     }
 }
