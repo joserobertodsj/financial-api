@@ -23,6 +23,6 @@ public class CustomerModel {
     private String documentNumber;
     private String phoneNumber;
     private BigDecimal monthlyIncome;
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private AddressModel address;
+    @Embedded
+    private AddressEmbeddable address;
 }

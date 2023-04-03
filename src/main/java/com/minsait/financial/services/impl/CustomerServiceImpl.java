@@ -1,10 +1,8 @@
 package com.minsait.financial.services.impl;
 
 import com.minsait.financial.models.CustomerModel;
-import com.minsait.financial.models.dtos.requests.customer.CustomerRequestDto;
-import com.minsait.financial.models.dtos.requests.customer.CustomerRequestUpdateDto;
-import com.minsait.financial.models.dtos.responses.address.AddressResponseDto;
-import com.minsait.financial.models.dtos.responses.customer.CustomerResponseDto;
+import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
+import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
 import com.minsait.financial.repositories.CustomerRepository;
 import com.minsait.financial.services.CustomerService;
 import lombok.AllArgsConstructor;
@@ -47,11 +45,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestUpdateDto customerRequestUpdateDto) {
-        return null;
-    }
-
-    @Override
-    public AddressResponseDto getAddress(Long idCustomer) {
         return null;
     }
 }

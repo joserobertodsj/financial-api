@@ -1,5 +1,6 @@
-package com.minsait.financial.models.dtos.requests.customer;
+package com.minsait.financial.models.dtos.requests;
 
+import com.minsait.financial.models.AddressEmbeddable;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -26,5 +27,7 @@ public class CustomerRequestDto {
     @Digits(integer = 20, fraction = 2)
     @NotNull(message = "Preenchimento obrigatório." )
     private BigDecimal monthlyIncome;
+    @NotBlank(message = "Preenchimento obrigatório.")
+    private AddressEmbeddable address;
 
 }

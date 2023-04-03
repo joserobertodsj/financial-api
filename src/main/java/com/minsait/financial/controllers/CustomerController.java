@@ -1,7 +1,7 @@
 package com.minsait.financial.controllers;
 
-import com.minsait.financial.models.dtos.requests.customer.CustomerRequestDto;
-import com.minsait.financial.models.dtos.responses.customer.CustomerResponseDto;
+import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
+import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
 import com.minsait.financial.services.impl.CustomerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

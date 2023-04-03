@@ -1,9 +1,7 @@
 package com.minsait.financial.services;
 
-import com.minsait.financial.models.dtos.requests.customer.CustomerRequestDto;
-import com.minsait.financial.models.dtos.requests.customer.CustomerRequestUpdateDto;
-import com.minsait.financial.models.dtos.responses.address.AddressResponseDto;
-import com.minsait.financial.models.dtos.responses.customer.CustomerResponseDto;
+import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
+import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
 
 import java.util.List;
 
@@ -13,6 +11,6 @@ public interface CustomerService {
     CustomerResponseDto getCustomerByDocumentNumber(String documentoNumber);
     void deleteCustomerByDocumentNumber(String documentNumber);
     CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestUpdateDto customerRequestUpdateDto);
-    AddressResponseDto getAddress(Long idCustomer);
+
 
 }
