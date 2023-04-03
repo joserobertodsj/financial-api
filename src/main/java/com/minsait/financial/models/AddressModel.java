@@ -19,4 +19,7 @@ public class AddressModel {
     private String street;
     private String number;
     private String zipCode;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private CustomerModel customer;
 }
