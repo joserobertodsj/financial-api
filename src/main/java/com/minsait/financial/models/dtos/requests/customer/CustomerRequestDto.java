@@ -1,6 +1,9 @@
 package com.minsait.financial.models.dtos.requests.customer;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +22,9 @@ public class CustomerRequestDto {
     private String documentNumber;
     @NotBlank(message = "Preenchimento obrigatório.")
     private String phoneNumber;
-    @NotBlank(message = "Preenchimento obrigatório.")
+    @DecimalMin(value = "0.0" , inclusive = false)
+    @Digits(integer = 20, fraction = 2)
+    @NotNull(message = "Preenchimento obrigatório." )
     private BigDecimal monthlyIncome;
 
 }
