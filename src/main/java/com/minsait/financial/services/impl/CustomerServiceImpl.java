@@ -1,14 +1,16 @@
 package com.minsait.financial.services.impl;
 
-import com.minsait.financial.exceptions.CustomerNotFound;
+import com.minsait.financial.exceptions.CustomerNotFoundException;
 import com.minsait.financial.models.CustomerModel;
 import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
+import com.minsait.financial.models.dtos.requests.CustomerRequestUpdateDto;
 import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
 import com.minsait.financial.repositories.CustomerRepository;
 import com.minsait.financial.services.CustomerService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,26 +39,37 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponseDto GetByDocumentNumber(String documentNumber) {
+
         Optional<CustomerModel> customerModel = customerRepository.findByDocumentNumber(documentNumber);
         if (!customerModel.isPresent()){
-            throw new CustomerNotFound("Cliente não encontrado!");
+            throw new CustomerNotFoundException("Cliente não encontrado!");
         }
-
         return modelMapper.map(customerModel, CustomerResponseDto.class);
     }
 
+    @Transactional
     @Override
     public void deleteByDocumentNumber(String documentNumber) {
-        Optional<CustomerModel> customerModel = customerRepository.findByDocumentNumber(documentNumber);
-        if (!customerModel.isPresent()){
-            throw new CustomerNotFound("Cliente não encontrado!");
-        }
-        customerRepository.delete(customerModel.get());
-
+        CustomerModel customerModel = modelMapper.map(GetByDocumentNumber(documentNumber), CustomerModel.class);
+        customerRepository.deleteByDocumentNumber(customerModel.getDocumentNumber());
     }
 
     @Override
-    public CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestDto customerRequestDto) {
-        return null;
+    public CustomerResponseDto updateCustomer(String documentNumber, CustomerRequestUpdateDto customerRequestUpdateDto) {
+        CustomerModel customerModel = modelMapper.map(GetByDocumentNumber(documentNumber), CustomerModel.class);
+        updateAttributes(customerRequestUpdateDto, customerModel);
+        customerRepository.save(customerModel);
+        return modelMapper.map(customerModel, CustomerResponseDto.class);
+    }
+
+
+
+
+//______________________________________________________________________________________________________________________
+    public void updateAttributes(CustomerRequestUpdateDto customerRequestUpdateDto, CustomerModel customerModel){
+        if (customerRequestUpdateDto.getName() != null) customerModel.setName(customerRequestUpdateDto.getName());
+        if (customerRequestUpdateDto.getPhoneNumber() != null) customerModel.setPhoneNumber(customerRequestUpdateDto.getPhoneNumber());
+        if (customerRequestUpdateDto.getMonthlyIncome() != null) customerModel.setMonthlyIncome(customerRequestUpdateDto.getMonthlyIncome());
+        if (customerRequestUpdateDto.getAddress() != null) customerModel.setAddress(customerRequestUpdateDto.getAddress());
     }
 }
