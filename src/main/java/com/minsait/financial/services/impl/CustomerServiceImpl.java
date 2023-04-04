@@ -1,5 +1,6 @@
 package com.minsait.financial.services.impl;
 
+import com.minsait.financial.exceptions.CustomerNotFound;
 import com.minsait.financial.models.CustomerModel;
 import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
 import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,16 +32,26 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerResponseDto> getAllCustomers() {
-        return null;
+        return customerRepository.findAll().stream().map(customer -> modelMapper.map(customer, CustomerResponseDto.class)).toList();
     }
 
     @Override
-    public CustomerResponseDto getCustomerByDocumentNumber(String documentoNumber) {
-        return null;
+    public CustomerResponseDto GetByDocumentNumber(String documentNumber) {
+        Optional<CustomerModel> customerModel = customerRepository.findByDocumentNumber(documentNumber);
+        if (!customerModel.isPresent()){
+            throw new CustomerNotFound("Cliente não encontrado!");
+        }
+
+        return modelMapper.map(customerModel, CustomerResponseDto.class);
     }
 
     @Override
-    public void deleteCustomerByDocumentNumber(String documentNumber) {
+    public void deleteByDocumentNumber(String documentNumber) {
+        Optional<CustomerModel> customerModel = customerRepository.findByDocumentNumber(documentNumber);
+        if (!customerModel.isPresent()){
+            throw new CustomerNotFound("Cliente não encontrado!");
+        }
+        customerRepository.delete(customerModel.get());
 
     }
 
