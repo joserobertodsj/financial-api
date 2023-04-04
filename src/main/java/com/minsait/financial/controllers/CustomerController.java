@@ -1,6 +1,7 @@
 package com.minsait.financial.controllers;
 
 import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
+import com.minsait.financial.models.dtos.requests.CustomerRequestUpdateDto;
 import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
 import com.minsait.financial.services.impl.CustomerServiceImpl;
 import jakarta.validation.Valid;
@@ -41,6 +42,12 @@ public class CustomerController {
         customerService.deleteByDocumentNumber(documentNumber);
          return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
+    }
+
+    @PutMapping("/{documentNumber}")
+    public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable String documentNumber
+            , @RequestBody CustomerRequestUpdateDto customerRequestUpdateDto){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.updateCustomer(documentNumber, customerRequestUpdateDto));
     }
 
 }
