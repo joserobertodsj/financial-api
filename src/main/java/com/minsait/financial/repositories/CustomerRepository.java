@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
     Optional<CustomerModel>  findByDocumentNumber(String documentNumber);
+    void deleteByDocumentNumber(String documentNumber);
 
 }
