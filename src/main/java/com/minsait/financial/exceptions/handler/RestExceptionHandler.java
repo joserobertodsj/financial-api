@@ -1,6 +1,6 @@
 package com.minsait.financial.exceptions.handler;
 
-import com.minsait.financial.exceptions.CustomerNotFound;
+import com.minsait.financial.exceptions.CustomerNotFoundException;
 import com.minsait.financial.exceptions.details.CustomerNotFoundDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class RestExceptionHandler {
-    @ExceptionHandler(CustomerNotFound.class)
-    public ResponseEntity<?> handleDocumentNumberNotFoundException(CustomerNotFound e){
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<?> handleDocumentNumberNotFoundException(CustomerNotFoundException e){
         CustomerNotFoundDetails customerNotFoundDetails = CustomerNotFoundDetails
                 .CustomerNotFoundDetailsBuilder
                 .newBuild()
