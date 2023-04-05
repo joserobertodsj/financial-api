@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_customer", uniqueConstraints={@UniqueConstraint(columnNames={"documentNumber"})})
@@ -25,4 +27,6 @@ public class CustomerModel {
     private BigDecimal monthlyIncome;
     @Embedded
     private AddressEmbeddable address;
+    @OneToMany(mappedBy = "customerModel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<LoanModel> loans = new ArrayList<>();
 }
