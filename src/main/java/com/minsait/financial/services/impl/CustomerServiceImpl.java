@@ -2,9 +2,9 @@ package com.minsait.financial.services.impl;
 
 import com.minsait.financial.exceptions.CustomerNotFoundException;
 import com.minsait.financial.models.CustomerModel;
-import com.minsait.financial.models.dtos.requests.CustomerRequestDto;
-import com.minsait.financial.models.dtos.requests.CustomerRequestUpdateDto;
-import com.minsait.financial.models.dtos.responses.CustomerResponseDto;
+import com.minsait.financial.models.dtos.requests.customer.CustomerRequestDto;
+import com.minsait.financial.models.dtos.requests.customer.CustomerRequestUpdateDto;
+import com.minsait.financial.models.dtos.responses.customer.CustomerResponseDto;
 import com.minsait.financial.repositories.CustomerRepository;
 import com.minsait.financial.services.CustomerService;
 import lombok.AllArgsConstructor;
