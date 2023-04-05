@@ -6,30 +6,30 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CustomerNotFoundDetails {
-    private String titulo;
+    private String title;
     private int status;
     private LocalDateTime timestamp;
-    private String mensagem;
+    private String message;
 
     private CustomerNotFoundDetails(){
 
     }
 
     public static final class CustomerNotFoundDetailsBuilder {
-        private String titulo;
+        private String title;
         private int status;
         private LocalDateTime timestamp;
-        private String mensagem;
+        private String message;
 
         private CustomerNotFoundDetailsBuilder() {
         }
 
-        public static CustomerNotFoundDetailsBuilder newBuild() {
+        public static CustomerNotFoundDetailsBuilder newBuilder() {
             return new CustomerNotFoundDetailsBuilder();
         }
 
-        public CustomerNotFoundDetailsBuilder withTitulo(String titulo) {
-            this.titulo = titulo;
+        public CustomerNotFoundDetailsBuilder withTitulo(String title) {
+            this.title = title;
             return this;
         }
 
@@ -43,8 +43,8 @@ public class CustomerNotFoundDetails {
             return this;
         }
 
-        public CustomerNotFoundDetailsBuilder withMensagem(String mensagem) {
-            this.mensagem = mensagem;
+        public CustomerNotFoundDetailsBuilder withMensagem(String message) {
+            this.message = message;
             return this;
         }
 
@@ -52,8 +52,8 @@ public class CustomerNotFoundDetails {
             CustomerNotFoundDetails customerNotFoundDetails = new CustomerNotFoundDetails();
             customerNotFoundDetails.status = this.status;
             customerNotFoundDetails.timestamp = this.timestamp;
-            customerNotFoundDetails.titulo = this.titulo;
-            customerNotFoundDetails.mensagem = this.mensagem;
+            customerNotFoundDetails.title = this.title;
+            customerNotFoundDetails.message = this.message;
             return customerNotFoundDetails;
         }
     }
