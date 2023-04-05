@@ -1,4 +1,4 @@
-package com.minsait.financial.models.dtos.requests;
+package com.minsait.financial.models.dtos.requests.customer;
 
 import com.minsait.financial.models.AddressEmbeddable;
 import jakarta.validation.Valid;

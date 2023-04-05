@@ -1,12 +1,14 @@
-package com.minsait.financial.models.dtos.responses;
+package com.minsait.financial.models.dtos.responses.customer;
 
 import com.minsait.financial.models.AddressEmbeddable;
+import com.minsait.financial.models.dtos.responses.loan.LoanResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +21,5 @@ public class CustomerResponseDto {
     private String phoneNumber;
     private BigDecimal monthlyIncome;
     private AddressEmbeddable address;
+    private List<LoanResponseDto> loans;
 }
