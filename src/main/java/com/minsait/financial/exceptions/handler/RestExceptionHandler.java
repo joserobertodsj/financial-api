@@ -1,21 +1,32 @@
 package com.minsait.financial.exceptions.handler;
 
 import com.minsait.financial.exceptions.CustomerNotFoundException;
+import com.minsait.financial.exceptions.GoldRelationshipLoanNotAllowedException;
+import com.minsait.financial.exceptions.LoanNotFoundException;
+import com.minsait.financial.exceptions.LoanRequestDeniedException;
 import com.minsait.financial.exceptions.details.CustomerNotFoundDetails;
+import com.minsait.financial.exceptions.details.GoldRelationshipLoanNotAllowedDetails;
+import com.minsait.financial.exceptions.details.LoanNotFoundDetails;
+import com.minsait.financial.exceptions.details.LoanRequestDeniedDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-@ControllerAdvice
-public class RestExceptionHandler {
+@RestControllerAdvice
+public class RestExceptionHandler{
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<?> handleDocumentNumberNotFoundException(CustomerNotFoundException e){
         CustomerNotFoundDetails customerNotFoundDetails = CustomerNotFoundDetails
                 .CustomerNotFoundDetailsBuilder
-                .newBuild()
+                .newBuilder()
                 .withTitulo("CustomerNotFoundException")
                 .withStatus(HttpStatus.NOT_FOUND.value())
                 .withMensagem(e.getMessage())
@@ -23,4 +34,57 @@ public class RestExceptionHandler {
                 .build();
         return new ResponseEntity<>(customerNotFoundDetails, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(LoanNotFoundException.class)
+    public ResponseEntity<?> handleLoanNotFoundException(LoanNotFoundException e){
+        LoanNotFoundDetails loanNotFoundDetails = LoanNotFoundDetails.LoanNotFoundDetailsBuilder
+                .newBuilder()
+                .withTitulo("LoanNotFoundException")
+                .withStatus(HttpStatus.NOT_FOUND.value())
+                .withMensagem(e.getMessage())
+                .withTimestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(loanNotFoundDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, Object> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+
+    @ExceptionHandler(GoldRelationshipLoanNotAllowedException.class)
+    public ResponseEntity<?> handleGoldRelationshipLoanNotAllowedException(GoldRelationshipLoanNotAllowedException e){
+        GoldRelationshipLoanNotAllowedDetails goldRelationshipLoanNotAllowedDetails = GoldRelationshipLoanNotAllowedDetails
+                .GoldRelationshipLoanNotAllowedDetailsBuilder
+                .newBuilder()
+                .withTitle("GoldRelationshipLoanNotAllowedException")
+                .withStatus(HttpStatus.FORBIDDEN.value())
+                .withMessage(e.getMessage())
+                .withTimestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(goldRelationshipLoanNotAllowedDetails, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(LoanRequestDeniedException.class)
+    public ResponseEntity<?> handleLoanRequestDeniedException(LoanRequestDeniedException e) {
+        LoanRequestDeniedDetails loanRequestDeniedDetails = LoanRequestDeniedDetails
+                .LoanRequestDeniedDetailsBuilder
+                .newBuilder()
+                .withTitle("LoanRequestDeniedException")
+                .withStatus(HttpStatus.FORBIDDEN.value())
+                .withMessage(e.getMessage())
+                .withTimestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(loanRequestDeniedDetails, HttpStatus.FORBIDDEN);
+
+    }
+
+
 }
