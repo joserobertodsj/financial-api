@@ -8,6 +8,7 @@ import com.minsait.financial.exceptions.details.CustomerNotFoundDetails;
 import com.minsait.financial.exceptions.details.GoldRelationshipLoanNotAllowedDetails;
 import com.minsait.financial.exceptions.details.LoanNotFoundDetails;
 import com.minsait.financial.exceptions.details.LoanRequestDeniedDetails;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -57,6 +58,12 @@ public class RestExceptionHandler{
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object>handleDataIntegrityViolationException(DataIntegrityViolationException e){
+        String message = "CPF já cadastrado no sistema.";
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(GoldRelationshipLoanNotAllowedException.class)
