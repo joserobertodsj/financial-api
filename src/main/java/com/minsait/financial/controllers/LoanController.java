@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/customers")
 @AllArgsConstructor
@@ -24,7 +26,20 @@ public class LoanController {
 
     @GetMapping("/{documentNumber}/loans/{id}")
     public ResponseEntity<LoanResponseDto> getLoanById(@PathVariable String documentNumber, @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(loanService.getLoanById(documentNumber, id));
+        return ResponseEntity.status(HttpStatus.OK).body(loanService.getLoan(documentNumber, id));
     }
+
+    @GetMapping("/{documentNumber}/loans")
+    public ResponseEntity<List<LoanResponseDto>> getAllLoans(@PathVariable String documentNumber){
+        return ResponseEntity.status(HttpStatus.OK).body(loanService.getAllLoans(documentNumber));
+    }
+
+    @DeleteMapping("/{documentNumber}/loans/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLoan(@PathVariable String documentNumber, @PathVariable Long id){
+        loanService.delete(documentNumber, id);
+    }
+
+
 
 }
