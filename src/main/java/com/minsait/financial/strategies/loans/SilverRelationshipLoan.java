@@ -1,7 +1,7 @@
 package com.minsait.financial.strategies.loans;
 
 import com.minsait.financial.models.LoanModel;
-import com.minsait.financial.strategies.loans.LoanStrategy;
+
 
 import java.math.BigDecimal;
 import java.math.MathContext;
