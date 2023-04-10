@@ -20,10 +20,6 @@ public class LoanModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
-    private CustomerModel customerModel;
     private String customerDocumentNumber;
     private BigDecimal initialValue;
     private BigDecimal finalValue;
@@ -31,6 +27,9 @@ public class LoanModel {
     private LocalDate finalDate;
     @Enumerated
     private Relationship relationship;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private CustomerModel customerModel;
 
 
 }
