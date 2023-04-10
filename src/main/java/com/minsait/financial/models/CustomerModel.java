@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_customer", uniqueConstraints={@UniqueConstraint(columnNames={"documentNumber"})})
+@Table(name = "tb_customer")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,11 +22,12 @@ public class CustomerModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String documentNumber;
     private String phoneNumber;
     private BigDecimal monthlyIncome;
     @Embedded
     private AddressEmbeddable address;
-    @OneToMany(mappedBy = "customerModel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customerModel", fetch = FetchType.EAGER)
     private List<LoanModel> loans = new ArrayList<>();
 }
