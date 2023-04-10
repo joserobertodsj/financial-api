@@ -3,7 +3,6 @@ package com.minsait.financial.models.dtos.requests.loan;
 import com.minsait.financial.enums.Relationship;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,8 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class LoanRequestDto {
-    @NotBlank(message = "Preenchimento obrigatório.")
-    private String customerDocumentNumber;
+
     @NotNull(message = "Preenchimento obrigatório.")
     private BigDecimal initialValue;
     @NotNull(message = "Preenchimento obrigatório.")
