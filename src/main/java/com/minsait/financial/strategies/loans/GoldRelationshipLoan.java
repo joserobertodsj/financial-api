@@ -16,7 +16,7 @@ public class GoldRelationshipLoan implements LoanStrategy {
         } else if (loanAmount > 1) {
             return loanInitialValue.multiply(BigDecimal.valueOf(1.30), MathContext.DECIMAL32);
         }
-        throw new GoldRelationshipLoanNotAllowedException("Histórico de empréstimo inexistente.");
+        throw new GoldRelationshipLoanNotAllowedException("Histórico de empréstimo inexistente. Você não pode contratar o relacionamento GOLD");
     }
 
 }
