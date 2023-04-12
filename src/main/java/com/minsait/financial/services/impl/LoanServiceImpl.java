@@ -1,5 +1,6 @@
 package com.minsait.financial.services.impl;
 
+import com.minsait.financial.exceptions.CustomerDoesNotHaveALoanException;
 import com.minsait.financial.exceptions.LoanNotFoundException;
 import com.minsait.financial.exceptions.LoanRequestDeniedException;
 import com.minsait.financial.models.CustomerModel;
@@ -61,6 +62,9 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public List<LoanResponseDto> getAllLoans(String documentNumber) {
         CustomerModel customerModel = modelMapper.map(customerService.GetByDocumentNumber(documentNumber), CustomerModel.class);
+        if (customerModel.getLoans().isEmpty()){
+            throw new CustomerDoesNotHaveALoanException("O cliente informado não possui empréstimos.");
+        }
        return customerModel.getLoans().stream().map(loan ->modelMapper.map(loan, LoanResponseDto.class)).toList();
     }
 
