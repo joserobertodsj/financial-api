@@ -28,6 +28,6 @@ public class CustomerModel {
     private BigDecimal monthlyIncome;
     @Embedded
     private AddressEmbeddable address;
-    @OneToMany(mappedBy = "customerModel", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customerModel", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<LoanModel> loans = new ArrayList<>();
 }
