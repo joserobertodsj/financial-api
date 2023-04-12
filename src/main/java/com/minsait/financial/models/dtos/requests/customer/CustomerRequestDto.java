@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 public class CustomerRequestDto {
     @NotBlank(message = "Preenchimento obrigatório.")
     private String name;
+    @CPF
     @NotBlank(message = "Preenchimento obrigatório.")
     private String documentNumber;
     @NotBlank(message = "Preenchimento obrigatório.")
