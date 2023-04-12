@@ -1,13 +1,7 @@
 package com.minsait.financial.exceptions.handler;
 
-import com.minsait.financial.exceptions.CustomerNotFoundException;
-import com.minsait.financial.exceptions.GoldRelationshipLoanNotAllowedException;
-import com.minsait.financial.exceptions.LoanNotFoundException;
-import com.minsait.financial.exceptions.LoanRequestDeniedException;
-import com.minsait.financial.exceptions.details.CustomerNotFoundDetails;
-import com.minsait.financial.exceptions.details.GoldRelationshipLoanNotAllowedDetails;
-import com.minsait.financial.exceptions.details.LoanNotFoundDetails;
-import com.minsait.financial.exceptions.details.LoanRequestDeniedDetails;
+import com.minsait.financial.exceptions.*;
+import com.minsait.financial.exceptions.details.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -91,6 +85,19 @@ public class RestExceptionHandler{
                 .build();
         return new ResponseEntity<>(loanRequestDeniedDetails, HttpStatus.FORBIDDEN);
 
+    }
+
+    @ExceptionHandler(CustomerDoesNotHaveALoanException.class)
+    public ResponseEntity<?> handleCustomerDoesNotHaveALoanException(CustomerDoesNotHaveALoanException e){
+        CustomerDoesNotHaveALoanDetails customerDoesNotHaveALoanDetails = CustomerDoesNotHaveALoanDetails
+                .CustomerDoesNotHaveALoanDetailsBuilder
+                .newBuilder()
+                .withTitle("CustomerDoesNotHaveALoanException")
+                .withStatus(HttpStatus.NOT_FOUND.value())
+                .withMessage(e.getMessage())
+                .withTimestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(customerDoesNotHaveALoanDetails, HttpStatus.NOT_FOUND);
     }
 
 
